@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Grab A Grub Menu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 2rem;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    button {
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Grab A Grub Menu</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Sr. No.</th>
+        <th>Food Item</th>
+        <th>Price (INR)</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="menuTableBody"></tbody>
+  </table>
+
+  <h2>Selected Items</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Food Item</th>
+        <th>Price (INR)</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tbody id="selectedItemsBody"></tbody>
+  </table>
+
+  <p><strong>Total Items:</strong> <span id="totalItems">0</span></p>
+  <p><strong>Total Cost:</strong> ₹<span id="totalCost">0</span></p>
+
+  <script>
+    const menuItems = [
+      "Margherita Pizza", "Pepperoni Pizza", "BBQ Chicken Pizza", "Veggie Supreme Pizza", "Paneer Tikka Pizza",
+      "Cheese Burst Pizza", "Farmhouse Pizza", "Mexican Green Wave Pizza", "Tandoori Paneer Pizza", "Classic Cheese Pizza",
+      "Veggie Burger", "Cheese Burger", "Chicken Burger", "Double Patty Burger", "Grilled Chicken Burger",
+      "Aloo Tikki Burger", "Spicy Paneer Burger", "Mushroom Swiss Burger", "BBQ Bacon Burger", "Crispy Chicken Burger",
+      "Pasta Alfredo", "Pasta Arrabbiata", "Pasta Primavera", "Pasta Carbonara", "Pasta Pesto",
+      "Spaghetti Bolognese", "Lasagna", "Mac and Cheese", "Baked Ziti", "Fettuccine Alfredo",
+      "Caesar Salad", "Greek Salad", "Garden Fresh Salad", "Fruit Salad", "Cobb Salad",
+      "Chicken Salad", "Coleslaw", "Potato Salad", "Kale & Quinoa Salad", "Waldorf Salad",
+      "Veg Roll", "Paneer Wrap", "Chicken Wrap", "Falafel Wrap", "Kathi Roll",
+      "Spring Roll", "Shawarma Roll", "Egg Roll", "Grilled Paneer Roll", "BBQ Chicken Wrap",
+      "French Fries", "Cheese Garlic Bread", "Tandoori Momos", "Veg Momos", "Chicken Momos",
+      "Hakka Noodles", "Chili Paneer", "Manchurian", "Spring Rolls", "Veg Fried Rice",
+      "Chicken Fried Rice", "Egg Fried Rice", "Schezwan Noodles", "Chow Mein", "Hot & Sour Soup",
+      "Choco Lava Cake", "Brownie", "Ice Cream Sundae", "Milkshake", "Fruit Custard",
+      "Gulab Jamun", "Rasgulla", "Jalebi", "Kheer", "Mango Mousse",
+      "Tiramisu", "Chocolate Mousse", "Carrot Cake", "Red Velvet Cake", "Cheesecake",
+      "Cold Coffee", "Hot Coffee", "Green Tea", "Lemonade", "Mango Smoothie",
+      "Strawberry Shake", "Pineapple Juice", "Orange Juice", "Watermelon Juice", "Coconut Water",
+      "Paneer Tikka", "Chicken Tikka", "Seekh Kebab", "Fish Fingers", "Crispy Corn",
+      "Tandoori Chicken", "Grilled Fish", "Prawn Cocktail", "Stuffed Mushrooms", "Honey Chilli Potatoes"
+    ];
+
+    const menuTableBody = document.getElementById("menuTableBody");
+    const selectedItemsBody = document.getElementById("selectedItemsBody");
+    const totalItemsSpan = document.getElementById("totalItems");
+    const totalCostSpan = document.getElementById("totalCost");
+
+    let selectedItems = {};
+    let totalItems = 0;
+    let totalCost = 0;
+
+    menuItems.forEach((item, index) => {
+      const tr = document.createElement("tr");
+
+      const tdNo = document.createElement("td");
+      tdNo.textContent = index + 1;
+
+      const tdItem = document.createElement("td");
+      tdItem.textContent = item;
+
+      const tdPrice = document.createElement("td");
+      const price = Math.floor(Math.random() * 900) + 100;
+      tdPrice.textContent = "₹" + price;
+
+      const tdAction = document.createElement("td");
+      const button = document.createElement("button");
+      button.textContent = "Select";
+      button.onclick = () => selectItem(item, price);
+      tdAction.appendChild(button);
+
+      tr.appendChild(tdNo);
+      tr.appendChild(tdItem);
+      tr.appendChild(tdPrice);
+      tr.appendChild(tdAction);
+
+      menuTableBody.appendChild(tr);
+    });
+
+    function selectItem(item, price) {
+      if (selectedItems[item]) {
+        selectedItems[item].quantity += 1;
+      } else {
+        selectedItems[item] = { price, quantity: 1 };
+      }
+
+      totalItems += 1;
+      totalCost += price;
+      updateSelectedItems();
+    }
+
+    function updateSelectedItems() {
+      selectedItemsBody.innerHTML = "";
+      for (const item in selectedItems) {
+        const tr = document.createElement("tr");
+
+        const tdItem = document.createElement("td");
+        tdItem.textContent = item;
+
+        const tdPrice = document.createElement("td");
+        tdPrice.textContent = "₹" + selectedItems[item].price;
+
+        const tdQuantity = document.createElement("td");
+        tdQuantity.textContent = selectedItems[item].quantity;
+
+        tr.appendChild(tdItem);
+        tr.appendChild(tdPrice);
+        tr.appendChild(tdQuantity);
+        selectedItemsBody.appendChild(tr);
+      }
+
+      totalItemsSpan.textContent = totalItems;
+      totalCostSpan.textContent = totalCost;
+    }
+  </script>
+
+  <button onclick="redirectToConfirm()">Proceed to Checkout</button>
+
+  <script>
+    function redirectToConfirm() {
+      localStorage.setItem("totalCost", totalCost);
+      localStorage.setItem("selectedItems", JSON.stringify(selectedItems));
+      window.location.href = "confirm_order.html";
+    }
+  </script>
+</body>
+</html>

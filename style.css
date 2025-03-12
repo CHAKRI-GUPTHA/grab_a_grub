@@ -1,0 +1,89 @@
+/* General Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Background Image */
+body {
+    background: url("C:/Users/chakr/OneDrive/Documents/Pictures/Saved Pictures/grab a grub.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Form Container */
+.form-container {
+    background-color: rgba(255, 255, 255, 0.9); /* Transparent white background */
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    text-align: center;
+    width: 300px;
+}
+
+/* Form Heading */
+.form-container h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+/* Labels */
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+/* Input Fields */
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Success and Error Messages */
+.success-message {
+    color: green;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    display: none;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    display: none;
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    padding: 0.7rem;
+    font-size: 1rem;
+    color: white;
+    background-color: #ff6f61;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #ff4d4d;
+}
